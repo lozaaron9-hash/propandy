@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta IMCLA · Suministro de Diesel · Santa Cruz 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bd:#002B6E;--bm:#0F4C9A;--bl:#D6E4F7;
+  --go:#C9A010;--gf:#F0C030;--gl:#FFF8DC;
+  --wh:#FFFFFF;--gr:#2A2A3A;--bg:#F0F4FB;
+  --gn:#1A7A4A;--rd:#8B1A1A;--or:#B85000;
+  --r:12px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',Arial,sans-serif;background:var(--bg);color:var(--gr)}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(0,20,70,.97);backdrop-filter:blur(8px);border-bottom:3px solid var(--go);padding:0 28px;display:flex;align-items:center;gap:0;height:50px;overflow-x:auto;white-space:nowrap}
+nav .brand{color:var(--gf);font-weight:800;font-size:13px;margin-right:24px;flex-shrink:0}
+nav a{color:rgba(255,255,255,.6);text-decoration:none;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:0 13px;height:50px;display:inline-flex;align-items:center;border-bottom:3px solid transparent;transition:all .2s;flex-shrink:0}
+nav a:hover{color:var(--gf);border-bottom-color:var(--go)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#000E3A 0%,var(--bd) 55%,#082568 100%);padding:60px 32px 52px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:420px;height:420px;background:radial-gradient(circle,rgba(201,160,16,.15) 0%,transparent 65%)}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--go),var(--gf),var(--go))}
+.hero-inner{max-width:1160px;margin:0 auto;position:relative;display:flex;gap:48px;align-items:center}
+.hero-text{flex:1}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(201,160,16,.15);border:1px solid rgba(201,160,16,.4);color:var(--gf);font-size:10px;font-weight:700;letter-spacing:2px;padding:5px 14px;border-radius:20px;text-transform:uppercase;margin-bottom:18px}
+.hero-tag span{width:6px;height:6px;background:var(--go);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(28px,4vw,52px);font-weight:900;color:var(--wh);line-height:1.1;margin-bottom:12px}
+.hero h1 em{color:var(--gf);font-style:normal}
+.hero-sub{font-size:14px;color:#8AAAD8;font-weight:300;max-width:600px;line-height:1.7;margin-bottom:28px}
+.hero-kpis{display:flex;flex-wrap:wrap;gap:12px}
+.hero-kpi{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:14px 18px;text-align:center;min-width:120px}
+.hero-kpi .val{font-size:24px;font-weight:900;color:var(--gf);line-height:1}
+.hero-kpi .lbl{font-size:10px;color:rgba(255,255,255,.6);margin-top:4px;line-height:1.4}
+.hero-radar{width:220px;min-width:220px;height:220px;position:relative}
+.hero-radar-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.hero-radar-label strong{font-size:20px;font-weight:900;color:var(--gf)}
+.hero-radar-label span{font-size:9px;color:#8AAAD8;text-align:center}
+
+/* GOLD STRIP */
+.gold-strip{background:var(--go);text-align:center;padding:9px 32px;font-size:11px;font-weight:700;color:var(--bd);letter-spacing:3px;text-transform:uppercase}
+
+/* SECTION */
+.section{max-width:1160px;margin:0 auto;padding:48px 24px}
+.section-head{margin-bottom:32px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--go);margin-bottom:8px}
+.section-head h2{font-size:clamp(20px,3vw,30px);font-weight:800;color:var(--bd);margin-bottom:8px}
+.section-head p{font-size:13px;color:#6070A0;line-height:1.7;max-width:720px}
+.divider{border:none;border-top:2px solid var(--bl)}
+
+/* ALERTS */
+.alert{border-radius:var(--r);padding:18px 22px;margin-bottom:24px;border-left:5px solid;font-size:13px;line-height:1.7}
+.alert.gold{background:var(--gl);border-color:var(--go);color:#5A4000}
+.alert.red{background:#FDEAEA;border-color:#CC3333;color:#5A0000}
+.alert.green{background:#E0F5EA;border-color:var(--gn);color:#0A3A20}
+.alert.blue{background:var(--bl);border-color:var(--bm);color:#002060}
+
+/* OPP GRID */
+.opp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+.opp-card{background:var(--wh);border-radius:var(--r);border:1.5px solid #E4EAF6;box-shadow:0 2px 10px rgba(0,43,110,.05);text-align:center;padding:24px 18px}
+.opp-icon{font-size:36px;margin-bottom:12px}
+.opp-card h4{font-size:13px;font-weight:800;color:var(--bd);margin-bottom:8px}
+.opp-num{font-size:30px;font-weight:900;color:var(--go);margin:10px 0 4px}
+.opp-lbl{font-size:10px;color:#8090B0;margin-bottom:8px}
+.opp-card p{font-size:11px;color:#6070A0;line-height:1.6}
+
+/* SECTORS */
+.sector-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:32px}
+.sector-card{background:var(--wh);border-radius:var(--r);border:1.5px solid #E4EAF6;overflow:hidden;box-shadow:0 2px 10px rgba(0,43,110,.05);display:flex;gap:0}
+.sector-accent{width:6px;flex-shrink:0}
+.sa-transport{background:linear-gradient(to bottom,#003580,var(--bm))}
+.sa-agro{background:linear-gradient(to bottom,#0A3A20,var(--gn))}
+.sa-mining{background:linear-gradient(to bottom,#4A1000,#8B2500)}
+.sa-construction{background:linear-gradient(to bottom,#3A2000,var(--or))}
+.sector-content{padding:16px 18px;flex:1}
+.sector-content h4{font-size:13px;font-weight:800;color:var(--bd);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.sector-stat{font-size:22px;font-weight:900;color:var(--bd);line-height:1;margin:6px 0 4px}
+.sector-desc{font-size:11px;color:#6070A0;line-height:1.5;margin-bottom:8px}
+.sector-pain{font-size:11px;background:#FDEAEA;color:#6A0000;padding:7px 10px;border-radius:6px;border-left:3px solid #CC3333;line-height:1.5}
+
+/* COMP */
+.comp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:32px}
+.comp-card{background:var(--wh);border-radius:var(--r);border:1.5px solid #E4EAF6;overflow:hidden;box-shadow:0 2px 12px rgba(0,43,110,.06)}
+.comp-head{padding:14px 18px;display:flex;align-items:flex-start;gap:12px;border-bottom:1px solid #F0F4FB}
+.comp-rank{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:var(--wh);flex-shrink:0}
+.rank-1{background:linear-gradient(135deg,#B8860B,var(--go))}
+.rank-2{background:linear-gradient(135deg,#777,#AAA)}
+.rank-3{background:linear-gradient(135deg,#8B4513,#CD853F)}
+.rank-4{background:linear-gradient(135deg,var(--bd),var(--bm))}
+.comp-head-text h3{font-size:14px;font-weight:800;color:var(--bd);margin-bottom:2px}
+.comp-head-text .sub{font-size:10px;color:#7080A0}
+.comp-head-text .tag{display:inline-block;margin-top:4px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:4px}
+.tag-threat{background:#FDEAEA;color:#8B0000}
+.tag-mid{background:#FFF8DC;color:#7A5500}
+.comp-body{padding:14px 18px;font-size:12px;color:#4A5A7A;line-height:1.6}
+.comp-row{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid #F4F6FB}
+.comp-row:last-child{border-bottom:none}
+.comp-lbl{font-weight:700;color:var(--bd);min-width:90px;flex-shrink:0}
+.comp-tags{display:flex;gap:6px;flex-wrap:wrap;padding:10px 18px 14px;background:#F8FAFF}
+.ctag{font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px}
+.ct-g{background:#D4EDDA;color:var(--gn)}
+.ct-r{background:#FDEAEA;color:#8B0000}
+.ct-b{background:var(--bl);color:var(--bm)}
+
+/* PRICE */
+.price-section{background:var(--wh);border-radius:var(--r);overflow:hidden;box-shadow:0 2px 16px rgba(0,43,110,.07);margin-bottom:24px}
+.price-header{background:linear-gradient(135deg,var(--bd),var(--bm));padding:18px 24px}
+.price-header h3{font-size:15px;font-weight:800;color:var(--wh)}
+.price-header p{font-size:11px;color:rgba(201,160,16,.85);font-style:italic;margin-top:3px}
+.price-table{width:100%;border-collapse:collapse}
+.price-table th{background:#F0F4FB;padding:10px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--bd);text-align:left;border-bottom:2px solid var(--bl)}
+.price-table td{padding:12px 16px;font-size:13px;border-bottom:1px solid #F0F4FB;vertical-align:middle}
+.price-table tr:last-child td{border-bottom:none}
+.price-table tr:nth-child(even) td{background:#FAFBFF}
+.price-h{font-weight:800;font-size:15px}
+.p-ypfb{color:var(--gn)}
+.p-priv{color:#B85000}
+.p-b2b{color:var(--bm)}
+.badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;margin-left:5px}
+.b-sub{background:#D4EDDA;color:var(--gn)}
+.b-lib{background:#FDEAEA;color:#8B0000}
+.b-b2b{background:var(--bl);color:var(--bm)}
+
+/* VALUE PROPS */
+.vp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px}
+.vp-card{background:var(--wh);border-radius:var(--r);border:1.5px solid #E4EAF6;overflow:hidden;box-shadow:0 2px 12px rgba(0,43,110,.06)}
+.vp-head{background:linear-gradient(135deg,var(--bd),var(--bm));padding:14px 18px;display:flex;align-items:center;gap:10px}
+.vp-num{font-size:28px;font-weight:900;color:var(--go);opacity:.85;line-height:1;min-width:40px}
+.vp-head h3{font-size:12px;font-weight:800;color:var(--wh);line-height:1.3}
+.vp-head p{font-size:10px;color:rgba(201,160,16,.8);font-style:italic;margin-top:2px}
+.vp-body{padding:14px 16px}
+.vp-list{list-style:none}
+.vp-list li{font-size:11px;color:#4A5A7A;line-height:1.5;padding:5px 0;border-bottom:1px solid #F4F6FB;display:flex;gap:7px;align-items:flex-start}
+.vp-list li:last-child{border-bottom:none}
+.vp-list li::before{content:'►';color:var(--go);font-weight:700;flex-shrink:0;font-size:9px;margin-top:2px}
+
+/* 5 PILLARS */
+.pillars-intro{text-align:center;margin-bottom:28px}
+.pillars-intro p{font-size:13px;color:#6070A0;font-style:italic;max-width:640px;margin:0 auto}
+.pillar-grid-top{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:18px}
+.pillar-grid-bot{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:32px}
+.pillar-card{background:var(--wh);border-radius:var(--r);overflow:hidden;box-shadow:0 4px 18px rgba(0,43,110,.08);border:1.5px solid transparent;transition:transform .25s,box-shadow .25s,border-color .25s}
+.pillar-card:hover{transform:translateY(-5px);box-shadow:0 12px 32px rgba(0,43,110,.15);border-color:var(--go)}
+.pillar-head{background:linear-gradient(135deg,var(--bd) 0%,var(--bm) 100%);padding:16px 18px;display:flex;align-items:flex-start;gap:12px}
+.pillar-num{font-size:36px;font-weight:900;color:var(--go);line-height:1;min-width:50px;opacity:.9}
+.pillar-title{font-size:12px;font-weight:800;color:var(--wh);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.pillar-tagline{font-size:10px;color:rgba(201,160,16,.85);font-style:italic}
+.pillar-body{list-style:none}
+.pillar-body li{padding:9px 16px;font-size:12px;color:var(--gr);display:flex;align-items:flex-start;gap:9px;line-height:1.5;border-bottom:1px solid #EEF2FA}
+.pillar-body li:nth-child(odd){background:#F8FAFF}
+.pillar-body li:last-child{border-bottom:none}
+.pillar-body li:hover{background:var(--bl)}
+.parrow{color:var(--go);font-weight:700;font-size:12px;flex-shrink:0;margin-top:1px}
+
+/* RADAR + STATS */
+.radar-section{background:var(--wh);border-radius:var(--r);padding:32px 28px;box-shadow:0 4px 20px rgba(0,43,110,.08);display:grid;grid-template-columns:1fr 280px;gap:36px;align-items:center;margin-bottom:32px}
+.radar-text h2{font-size:20px;font-weight:800;color:var(--bd);margin-bottom:12px}
+.radar-text h2 span{color:var(--go)}
+.radar-text p{font-size:13px;line-height:1.7;color:var(--gr);margin-bottom:16px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat-box{background:linear-gradient(135deg,#F0F4FB,#E8F0FA);border-radius:10px;padding:14px 10px;border-left:3px solid var(--go);text-align:center}
+.stat-box .stat-num{font-size:24px;font-weight:900;color:var(--bd)}
+.stat-box .stat-desc{font-size:10px;color:#6A7A9A;font-weight:500;margin-top:2px}
+
+/* METHODOLOGY */
+.methodology{background:linear-gradient(135deg,var(--bd),#0a3080);border-radius:var(--r);padding:32px 28px;margin-bottom:32px;position:relative;overflow:hidden}
+.methodology::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(201,160,16,.15) 0%,transparent 70%)}
+.methodology h2{font-size:17px;font-weight:800;color:var(--wh);margin-bottom:5px;position:relative}
+.methodology .method-sub{font-size:12px;color:#A0B8D8;margin-bottom:24px;font-style:italic;position:relative}
+.method-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative}
+.method-steps::before{content:'';position:absolute;top:32px;left:10%;width:80%;height:2px;background:linear-gradient(to right,var(--bm),var(--go),var(--gn));z-index:0}
+.method-step{text-align:center;position:relative;z-index:1}
+.step-circle{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:11px;font-weight:800;color:var(--wh);border:3px solid rgba(255,255,255,.2);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.s1{background:#1a3a8a}.s2{background:var(--bm)}.s3{background:#a07a08}.s4{background:var(--gn)}
+.step-name{font-size:12px;font-weight:700;color:var(--wh);margin-bottom:4px}
+.step-desc{font-size:10px;color:#A0B8D8;line-height:1.5}
+
+/* PLAN ENTRADA */
+.entry-timeline{position:relative;margin-bottom:32px}
+.entry-track{position:absolute;left:36px;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--bd),var(--bm),var(--go),var(--gn));border-radius:3px}
+.entry-item{display:flex;gap:20px;margin-bottom:24px;position:relative}
+.entry-dot{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:var(--wh);flex-shrink:0;position:relative;z-index:1;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+.d1{background:var(--bd)}.d2{background:#1A3A8A}.d3{background:var(--bm)}.d4{background:var(--gn)}
+.entry-card{background:var(--wh);border-radius:var(--r);border:1.5px solid #E4EAF6;flex:1;overflow:hidden;box-shadow:0 2px 10px rgba(0,43,110,.05)}
+.entry-head{padding:12px 18px;border-bottom:1px solid #EEF2FA;display:flex;gap:10px;align-items:flex-start}
+.entry-badge{background:linear-gradient(135deg,var(--bd),var(--bm));color:var(--go);font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:5px;flex-shrink:0;margin-top:2px}
+.entry-head h4{font-size:13px;font-weight:800;color:var(--bd)}
+.entry-head p{font-size:11px;color:#7080A0;font-style:italic;margin-top:2px}
+.entry-body{padding:12px 18px;font-size:11px;color:#4A5A7A;line-height:1.6}
+.entry-body ul{list-style:none;margin-top:6px}
+.entry-body ul li{padding:4px 0;border-bottom:1px solid #F4F6FB;display:flex;gap:6px}
+.entry-body ul li::before{content:'›';color:var(--go);font-weight:700;flex-shrink:0}
+
+/* FOOTER */
+.footer-cta{background:linear-gradient(135deg,#000E3A,var(--bd));padding:40px 32px;border-top:4px solid var(--go);margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.footer-cta h3{font-size:22px;font-weight:800;color:var(--gf);margin-bottom:8px}
+.footer-cta p{font-size:13px;color:#8AAAD8;line-height:1.7;max-width:540px}
+.footer-contact{text-align:right}
+.footer-contact p{font-size:13px;color:var(--wh);font-weight:600;margin-bottom:3px}
+.footer-contact small{font-size:11px;color:#5070A0}
+.footer-bottom{max-width:1160px;margin:0 auto;padding:14px 32px;font-size:11px;color:#5070A0;border-top:1px solid rgba(255,255,255,.1);background:linear-gradient(135deg,#000E3A,var(--bd))}
+
+/* CHARTS GRID */
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px}
+.chart-card{background:var(--wh);border-radius:var(--r);padding:24px;box-shadow:0 2px 12px rgba(0,43,110,.06);border:1.5px solid #E4EAF6}
+.chart-card h4{font-size:13px;font-weight:700;color:var(--bd);margin-bottom:4px}
+.chart-card p{font-size:11px;color:#8090B0;margin-bottom:16px}
+
+/* MAP WRAP */
+.map-wrap{background:var(--wh);border-radius:var(--r);padding:28px;box-shadow:0 2px 16px rgba(0,43,110,.07);border:1.5px solid #E4EAF6;margin-bottom:32px}
+.map-wrap h3{font-size:16px;font-weight:800;color:var(--bd);margin-bottom:6px}
+.map-wrap p{font-size:12px;color:#6070A0;margin-bottom:20px}
+
+/* FADE ANIMATION */
+.fade-up{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  .hero-inner,.radar-section{flex-direction:column}
+  .hero-radar{display:none}
+  .opp-grid,.vp-grid,.pillar-grid-top,.sector-grid,.comp-grid,.stat-row{grid-template-columns:1fr}
+  .pillar-grid-bot{grid-template-columns:1fr}
+  .method-steps{grid-template-columns:repeat(2,1fr)}
+  .method-steps::before{display:none}
+  .radar-section{grid-template-columns:1fr}
+  .footer-cta{flex-direction:column}
+  .footer-contact{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="brand">IMCLA · Diesel SCZ 2026</span>
+  <a href="#oportunidad">La Oportunidad</a>
+  <a href="#sectores">Sectores</a>
+  <a href="#competencia">Competencia</a>
+  <a href="#precios">Precios</a>
+  <a href="#propuesta">Propuesta de Valor</a>
+  <a href="#pilares">Sistema 5 Pilares</a>
+  <a href="#plan">Plan de Entrada</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag"><span></span>Propuesta Comercial · IMCLA Bolivia · Junio 2026</div>
+      <h1>Suministro de Diesel<br>en <em>Santa Cruz</em></h1>
+      <p class="hero-sub">Análisis de mercado, propuesta de valor y sistema comercial integrado para la entrada de IMCLA al mercado cruceño. El mayor mercado de diesel del país — y la ventana más importante está abierta ahora.</p>
+      <div class="hero-kpis">
+        <div class="hero-kpi">
+          <div class="val">3.3M</div>
+          <div class="lbl">Litros/día que<br>demanda Sta. Cruz</div>
+        </div>
+        <div class="hero-kpi">
+          <div class="val">~1.2M</div>
+          <div class="lbl">Litros/día de<br>déficit estructural</div>
+        </div>
+        <div class="hero-kpi">
+          <div class="val">Bs 13.90</div>
+          <div class="lbl">Precio privado<br>libre importación</div>
+        </div>
+        <div class="hero-kpi">
+          <div class="val">+82%</div>
+          <div class="lbl">Crecimiento importación<br>privada en 10 años</div>
+        </div>
+        <div class="hero-kpi">
+          <div class="val">#1</div>
+          <div class="lbl">Santa Cruz: mayor<br>consumidor de Bolivia</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-radar">
+      <canvas id="radarHeader"></canvas>
+      <div class="hero-radar-label">
+        <strong>5</strong>
+        <span>Pilares<br>Integrados</span>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="gold-strip">MERCADO · COMPETENCIA · PROPUESTA DE VALOR · SISTEMA DE 5 PILARES · PLAN DE ENTRADA</div>
+
+<!-- ═══ OPORTUNIDAD ═══════════════════════════════════════════ -->
+<div id="oportunidad"></div>
+<div class="section">
+  <div class="section-head">
+    <div class="eyebrow">Contexto Estratégico</div>
+    <h2>La Mayor Oportunidad del País</h2>
+    <p>Santa Cruz concentra la mayor demanda de diesel de Bolivia. Con la apertura al sector privado desde 2024, el departamento representa la puerta de entrada más rentable para cualquier importadora nueva.</p>
+  </div>
+
+  <div class="alert gold">
+    <strong>📊 Dato crítico:</strong> Santa Cruz requiere <strong>3.3 millones de litros de diesel por día</strong>. En momentos de crisis, solo recibe 700,000 litros — menos del 22% de lo que necesita. La demanda insatisfecha supera el 1 millón de litros diarios de forma estructural. <strong>Esa es la oportunidad real para IMCLA.</strong>
+  </div>
+
+  <div class="charts-grid fade-up">
+    <div class="chart-card">
+      <h4>Consumo Diario de Diesel por Departamento (est.)</h4>
+      <p>Santa Cruz lidera con amplio margen sobre el resto del país</p>
+      <canvas id="chartDepts" height="220"></canvas>
+    </div>
+    <div class="chart-card">
+      <h4>Distribución del Consumo por Sector — Santa Cruz</h4>
+      <p>Transporte y agro representan el 71% de la demanda cruceña</p>
+      <canvas id="chartSectors" height="220"></canvas>
+    </div>
+  </div>
+
+  <div class="opp-grid fade-up">
+    <div class="opp-card">
+      <div class="opp-icon">⛽</div>
+      <h4>Brecha de Abastecimiento</h4>
+      <div class="opp-num">~1.2M</div>
+      <div class="opp-lbl">litros/día de déficit estructural en SCZ</div>
+      <p>Quien entra con supply garantizado captura contratos de inmediato.</p>
+    </div>
+    <div class="opp-card">
+      <div class="opp-icon">📈</div>
+      <h4>Crecimiento del Sector Privado</h4>
+      <div class="opp-num">+82%</div>
+      <div class="opp-lbl">crecimiento importación privada en 10 años</div>
+      <p>El privado puede participar libremente desde 2024. El timing es ideal.</p>
+    </div>
+    <div class="opp-card">
+      <div class="opp-icon">🏆</div>
+      <h4>Pico Agrícola: Cosecha</h4>
+      <div class="opp-num">+40M</div>
+      <div class="opp-lbl">litros extra demandados en época de cosecha</div>
+      <p>Solo en octubre, Santa Cruz necesita 40 millones de litros adicionales. Contratos de temporada = ingresos garantizados.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTORES ══════════════════════════════════════════════ -->
+<div id="sectores" style="background:#fff;border-top:1px solid #E4EAF6;border-bottom:1px solid #E4EAF6">
+<div class="section">
+  <div class="section-head">
+    <div class="eyebrow">Clientes Target</div>
+    <h2>Los 4 Sectores con Mayor Demanda</h2>
+    <p>Cada sector tiene un dolor específico con el abastecimiento. Conocer ese dolor es la clave para proponer algo que no se compara solo por precio.</p>
+  </div>
+
+  <div class="sector-grid fade-up">
+    <div class="sector-card">
+      <div class="sector-accent sa-transport"></div>
+      <div class="sector-content">
+        <h4>🚛 Transporte de Carga <span style="font-size:10px;font-weight:400;color:#7080A0">58% del consumo</span></h4>
+        <div class="sector-stat">~1.9M</div>
+        <div class="sector-desc">litros/día consumidos solo en transporte en Santa Cruz</div>
+        <div class="sector-pain">🔴 Filas de horas en surtidores YPFB. Pérdida de tiempo = pérdida de rutas. Pagan más por certeza de suministro.</div>
+      </div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-accent sa-agro"></div>
+      <div class="sector-content">
+        <h4>🌾 Agro-Industria <span style="font-size:10px;font-weight:400;color:#7080A0">13% + picos de cosecha</span></h4>
+        <div class="sector-stat">40M+</div>
+        <div class="sector-desc">litros necesarios solo en meses de cosecha (soya, maíz, sorgo)</div>
+        <div class="sector-pain">🔴 Paralización de cosecha por falta de diesel = pérdidas millonarias. La CAO declaró que 35M litros no cubren la demanda.</div>
+      </div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-accent sa-mining"></div>
+      <div class="sector-content">
+        <h4>⛏️ Minería <span style="font-size:10px;font-weight:400;color:#7080A0">Demanda creciente</span></h4>
+        <div class="sector-stat">24/7</div>
+        <div class="sector-desc">operaciones continuas que no pueden parar por falta de combustible</div>
+        <div class="sector-pain">🔴 Un día sin diesel puede costar más que 3 meses de suministro. Buscan contratos anuales fijos con SLA garantizado.</div>
+      </div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-accent sa-construction"></div>
+      <div class="sector-content">
+        <h4>🏗️ Construcción <span style="font-size:10px;font-weight:400;color:#7080A0">Maquinaria y generadores</span></h4>
+        <div class="sector-stat">Vol.</div>
+        <div class="sector-desc">contratos por obra con demanda concentrada y predecible por meses</div>
+        <div class="sector-pain">🔴 Los proyectos tienen cronograma. Falta de diesel = retraso de obra = multas contractuales. Pagan prima por entrega en sitio.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert green">
+    <strong>💡 Insight clave:</strong> Ninguno de estos sectores compra diesel solo por precio. Compran <strong>certeza de suministro, velocidad de entrega y relación de confianza</strong>. Quien llega primero con contrato en mano y logística garantizada, gana el cliente por años.
+  </div>
+</div>
+</div>
+
+<!-- ═══ COMPETENCIA ════════════════════════════════════════════ -->
+<div id="competencia" class="divider"></div>
+<div class="section">
+  <div class="section-head">
+    <div class="eyebrow">Análisis Competitivo</div>
+    <h2>Los Jugadores Privados del Mercado</h2>
+    <p>De las 71 empresas registradas en la ANH, estas 4 son los competidores directos que ya operan o tienen autorización activa en Santa Cruz.</p>
+  </div>
+
+  <div class="comp-grid fade-up">
+    <div class="comp-card">
+      <div class="comp-head">
+        <div class="comp-rank rank-1">🥇</div>
+        <div class="comp-head-text">
+          <h3>Intpetrol S.R.L.</h3>
+          <div class="sub">Pionero del mercado libre · Zona norte SCZ</div>
+          <span class="tag tag-threat">⚠ COMPETIDOR #1</span>
+        </div>
+      </div>
+      <div class="comp-body">
+        <div class="comp-row"><span class="comp-lbl">Volumen</span><span>+2M litros/mes activos · Origen: Paraguay, Brasil, Argentina</span></div>
+        <div class="comp-row"><span class="comp-lbl">Infraestructura</span><span>Estación Km 12 Warnes + zona norte (Viru Viru). Almacenamiento propio.</span></div>
+        <div class="comp-row"><span class="comp-lbl">Precio</span><span>Bs 13.90/litro (libre importación)</span></div>
+        <div class="comp-row"><span class="comp-lbl">Debilidad</span><span>Foco solo en zona norte · Sin delivery a sitio · Marca en construcción</span></div>
+      </div>
+      <div class="comp-tags">
+        <span class="ctag ct-g">✓ Primer mover</span>
+        <span class="ctag ct-g">✓ Inf. propia</span>
+        <span class="ctag ct-r">✗ Precio elevado</span>
+        <span class="ctag ct-r">✗ Cobertura limitada</span>
+      </div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-head">
+        <div class="comp-rank rank-2">🥈</div>
+        <div class="comp-head-text">
+          <h3>Empacar Energy</h3>
+          <div class="sub">Parque Industrial SCZ · Respaldo corporativo 50 años</div>
+          <span class="tag tag-threat">⚠ COMPETIDOR #2</span>
+        </div>
+      </div>
+      <div class="comp-body">
+        <div class="comp-row"><span class="comp-lbl">Capacidad</span><span>8M litros almacenamiento · 15 cisternas simultáneas · 24h Lun-Sáb</span></div>
+        <div class="comp-row"><span class="comp-lbl">Diferenciador</span><span>ISO 9001:2015 · Diesel ULSD certificado · Precio en tiempo real</span></div>
+        <div class="comp-row"><span class="comp-lbl">Debilidad</span><span>Solo Parque Industrial · Sin delivery a sitio · Precio premium ULSD</span></div>
+      </div>
+      <div class="comp-tags">
+        <span class="ctag ct-g">✓ ISO certificado</span>
+        <span class="ctag ct-g">✓ Gran capacidad</span>
+        <span class="ctag ct-r">✗ Solo SCZ centro</span>
+        <span class="ctag ct-r">✗ Sin delivery</span>
+      </div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-head">
+        <div class="comp-rank rank-3">🥉</div>
+        <div class="comp-head-text">
+          <h3>Latigidconst S.R.L.</h3>
+          <div class="sub">Autorizado ANH · Mayor cupo individual aprobado</div>
+          <span class="tag tag-mid">⚡ AMENAZA MEDIA</span>
+        </div>
+      </div>
+      <div class="comp-body">
+        <div class="comp-row"><span class="comp-lbl">Posición</span><span>Una de las 4 empresas con mayores cupos ANH de importación</span></div>
+        <div class="comp-row"><span class="comp-lbl">Foco</span><span>Aparente especialización en construcción e infraestructura</span></div>
+        <div class="comp-row"><span class="comp-lbl">Debilidad</span><span>Sin marca pública · Sin canal digital · Operaciones en etapa temprana</span></div>
+      </div>
+      <div class="comp-tags">
+        <span class="ctag ct-b">✓ Alto cupo ANH</span>
+        <span class="ctag ct-r">✗ Sin marca</span>
+        <span class="ctag ct-r">✗ Sin visibilidad</span>
+      </div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-head">
+        <div class="comp-rank rank-4">4°</div>
+        <div class="comp-head-text">
+          <h3>Ruiz Petrol</h3>
+          <div class="sub">Autorizado ANH · Perfil bajo · B2B directo</div>
+          <span class="tag tag-mid">⚡ AMENAZA MEDIA</span>
+        </div>
+      </div>
+      <div class="comp-body">
+        <div class="comp-row"><span class="comp-lbl">Posición</span><span>Parte del bloque de 29M litros/mes autorizados para las 4 principales</span></div>
+        <div class="comp-row"><span class="comp-lbl">Diferenciador</span><span>Opera en silencio · Contratos a largo plazo sin exposición mediática</span></div>
+        <div class="comp-row"><span class="comp-lbl">Debilidad</span><span>Sin marca pública · Sin canal digital · Posible dependencia de red de contactos</span></div>
+      </div>
+      <div class="comp-tags">
+        <span class="ctag ct-b">✓ Cupo autorizado</span>
+        <span class="ctag ct-r">✗ Sin marca</span>
+        <span class="ctag ct-r">✗ Sin visibilidad</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAPA DE POSICIONAMIENTO -->
+  <div class="map-wrap fade-up">
+    <h3>Mapa de Posicionamiento Competitivo</h3>
+    <p>Precio vs. Cobertura de servicio. El cuadrante verde (alta cobertura + precio competitivo) está casi vacío — ahí es donde IMCLA debe posicionarse.</p>
+    <canvas id="chartPositioning" height="320"></canvas>
+  </div>
+
+  <div class="alert red">
+    <strong>🚨 Ventana de tiempo:</strong> Intpetrol lleva apenas 15 meses de operación real. Empacar Energy abrió en 2025. <strong>El mercado cruceño de diesel privado aún no tiene un líder consolidado.</strong> Las empresas que entren en los próximos 6–12 meses y construyan relaciones antes de que se congele el mercado, se quedarán con los contratos más grandes.
+  </div>
+</div>
+
+<!-- ═══ PRECIOS ════════════════════════════════════════════════ -->
+<div id="precios" style="background:#fff;border-top:1px solid #E4EAF6;border-bottom:1px solid #E4EAF6">
+<div class="section">
+  <div class="section-head">
+    <div class="eyebrow">Estructura de Precios</div>
+    <h2>Lo que el Mercado Paga y Por Qué</h2>
+    <p>Bolivia tiene dos mercados paralelos: el regulado (YPFB con subsidio) y el libre (importación privada). Este diferencial define la estrategia de precios de IMCLA.</p>
+  </div>
+
+  <div class="price-section fade-up">
+    <div class="price-header">
+      <h3>Tabla de Precios · Diesel Bolivia 2026</h3>
+      <p>Fuentes: DS 5516 (enero 2026) · ANH · Intpetrol · Empacar Energy · Precios en Bolivianos por litro</p>
+    </div>
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>Tipo</th><th>Proveedor</th><th>Precio/Litro</th><th>A quién aplica</th><th>Nota clave</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Regulado YPFB</strong><span class="badge b-sub">SUBSIDIADO</span></td>
+          <td>YPFB (Estado)</td>
+          <td><span class="price-h p-ypfb">Bs 9.80</span></td>
+          <td>Consumidores generales</td>
+          <td>Subsidio estatal · Colas · Escasez crónica. El Estado importa a pérdida.</td>
+        </tr>
+        <tr>
+          <td><strong>Libre Importación</strong><span class="badge b-lib">MERCADO LIBRE</span></td>
+          <td>Intpetrol</td>
+          <td><span class="price-h p-priv">Bs 13.90</span></td>
+          <td>Empresas sin subsidio</td>
+          <td>Sin filas, disponibilidad garantizada. Variable según Brent y tipo de cambio.</td>
+        </tr>
+        <tr>
+          <td><strong>ULSD Premium</strong><span class="badge b-lib">MERCADO LIBRE</span></td>
+          <td>Empacar Energy</td>
+          <td><span class="price-h p-priv">Variable diario</span></td>
+          <td>Industrias y flotas</td>
+          <td>Ultra bajo en azufre. Indexado a Brent + Heating Oil + tipo de cambio.</td>
+        </tr>
+        <tr>
+          <td><strong>B2B por Volumen</strong><span class="badge b-b2b">TARGET IMCLA</span></td>
+          <td>Importadores privados</td>
+          <td><span class="price-h p-b2b">Bs 11–13</span></td>
+          <td>Contratos +100K litros/mes</td>
+          <td>El precio baja con volumen y plazo. <strong>Este es el rango donde IMCLA debe competir.</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="charts-grid fade-up">
+    <div class="chart-card">
+      <h4>Comparativa de Precios por Canal</h4>
+      <p>El diferencial entre YPFB y privado es de ~42% — pero las empresas pagan por disponibilidad garantizada</p>
+      <canvas id="chartPrecios" height="240"></canvas>
+    </div>
+    <div class="chart-card">
+      <h4>Factores que Mueven el Precio Privado</h4>
+      <p>El precio del importador privado depende de estos componentes variables</p>
+      <canvas id="chartFactors" height="240"></canvas>
+    </div>
+  </div>
+
+  <div class="alert blue">
+    <strong>🎯 Estrategia de precios para IMCLA:</strong> No compitas en precio con YPFB. Compite en el segmento B2B (Bs 11–13/litro) con <strong>certeza de suministro, entrega en sitio, trazabilidad y ejecutivo de cuenta dedicado</strong>. El cliente paga más por no parar su operación.
+  </div>
+</div>
+</div>
+
+<!-- ═══ PROPUESTA DE VALOR ════════════════════════════════════ -->
+<div id="propuesta" class="divider"></div>
+<div class="section">
+  <div class="section-head">
+    <div class="eyebrow">Propuesta de Valor IMCLA</div>
+    <h2>6 Diferenciadores que el Mercado No Tiene</h2>
+    <p>En un mercado donde todos venden el mismo líquido, gana quien vende confianza, certeza y relación.</p>
+  </div>
+
+  <div class="alert gold" style="margin-bottom:28px">
+    <strong>🧠 La pregunta que IMCLA debe responder mejor que todos:</strong> <em>"¿Por qué comprarte diesel a ti?"</em> — La respuesta no es el precio. Es: <strong>¿Quién me garantiza que nunca voy a parar mi operación?</strong>
+  </div>
+
+  <div class="vp-grid fade-up">
+    <div class="vp-card">
+      <div class="vp-head">
+        <div class="vp-num">01</div>
+        <div><h3>Garantía de Suministro con SLA</h3><p>El diferenciador más poderoso del mercado</p></div>
+      </div>
+      <div class="vp-body">
+        <ul class="vp-list">
+          <li>Contrato SLA: entrega garantizada en X horas o descuento automático</li>
+          <li>Stock mínimo reservado para clientes bajo contrato</li>
+          <li>Plan de contingencia documentado ante escasez de importación</li>
+          <li>Disponibilidad 24/7 para emergencias operativas</li>
+        </ul>
+      </div>
+    </div>
+    <div class="vp-card">
+      <div class="vp-head">
+        <div class="vp-num">02</div>
+        <div><h3>Entrega en Sitio (Delivery)</h3><p>Ni Intpetrol ni Empacar entregan donde opera el cliente</p></div>
+      </div>
+      <div class="vp-body">
+        <ul class="vp-list">
+          <li>Cisternas propias o aliadas para entrega en campo, obra, mina o almacén</li>
+          <li>Entregas programadas por calendario: el cliente sabe exactamente cuándo llega</li>
+          <li>Cobertura en zonas rurales: Montero, San Julián, Yapacaní</li>
+          <li>El cliente no pierde tiempo enviando sus vehículos a buscar combustible</li>
+        </ul>
+      </div>
+    </div>
+    <div class="vp-card">
+      <div class="vp-head">
+        <div class="vp-num">03</div>
+        <div><h3>Contratos B2B a Precio Fijo</h3><p>Certeza de costo = ventaja competitiva para el cliente</p></div>
+      </div>
+      <div class="vp-body">
+        <ul class="vp-list">
+          <li>Contratos de 3, 6 o 12 meses con precio fijo o precio tope</li>
+          <li>El sector agrícola valora el precio fijo durante siembra y cosecha</li>
+          <li>Descuento progresivo según volumen m³/mes comprometido</li>
+          <li>Facturación electrónica con detalle de entrega por cisterna</li>
+        </ul>
+      </div>
+    </div>
+    <div class="vp-card">
+      <div class="vp-head">
+        <div class="vp-num">04</div>
+        <div><h3>Ejecutivo de Cuenta Dedicado</h3><p>No eres un número — tienes una persona asignada</p></div>
+      </div>
+      <div class="vp-body">
+        <ul class="vp-list">
+          <li>Un ejecutivo por cliente grande: una persona que resuelve todo vía WhatsApp</li>
+          <li>Reporte mensual de consumo, comparativa y proyección</li>
+          <li>Atención directa al gerente de operaciones — sin call center</li>
+          <li>Intpetrol y Empacar son volumen; IMCLA es relación</li>
+        </ul>
+      </div>
+    </div>
+    <div class="vp-card">
+      <div class="vp-head">
+        <div class="vp-num">05</div>
+        <div><h3>Origen Diversificado & Calidad Certificada</h3><p>El cliente sabe de dónde viene y qué calidad tiene</p></div>
+      </div>
+      <div class="vp-body">
+        <ul class="vp-list">
+          <li>Mínimo 2 países proveedores (Paraguay, Argentina o Brasil) — sin dependencia de una sola fuente</li>
+          <li>Certificado de calidad por lote: índice de cetano, azufre, densidad</li>
+          <li>Trazabilidad completa: origen, transporte, fecha de carga</li>
+          <li>Diesel libre de agua y contaminantes — clave para motores de alta tecnología</li>
+        </ul>
+      </div>
+    </div>
+    <div class="vp-card">
+      <div class="vp-head">
+        <div class="vp-num">06</div>
+        <div><h3>Plataforma Digital en Tiempo Real</h3><p>El cliente controla su consumo desde el celular</p></div>
+      </div>
+      <div class="vp-body">
+        <ul class="vp-list">
+          <li>Portal web o WhatsApp Business para pedir, rastrear y confirmar entregas</li>
+          <li>Dashboard de consumo por área, maquinaria o proyecto</li>
+          <li>Alertas automáticas cuando el stock del cliente baja del mínimo pactado</li>
+          <li>Historial de facturas y entregas disponible 24/7</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SISTEMA 5 PILARES ══════════════════════════════════════ -->
+<div id="pilares" style="background:#fff;border-top:1px solid #E4EAF6;border-bottom:1px solid #E4EAF6">
+<div class="section">
+  <div class="section-head">
+    <div class="eyebrow">Sistema Comercial</div>
+    <h2>Sistema de 5 Pilares de Conversión</h2>
+    <p>Para capturar el mercado, IMCLA necesita un sistema comercial inteligente que capte, convierta y retenga clientes de forma automatizada — mientras Intpetrol y Empacar esperan que el cliente vaya a buscarlos.</p>
+  </div>
+
+  <div class="pillars-intro">
+    <p>Cada pilar ataca un punto específico de la cadena de valor comercial. Juntos crean un sistema integrado que se potencia a sí mismo y trabaja 24/7.</p>
+  </div>
+
+  <div class="pillar-grid-top fade-up">
+    <div class="pillar-card">
+      <div class="pillar-head">
+        <div class="pillar-num">01</div>
+        <div>
+          <div class="pillar-title">Automatización con IA</div>
+          <div class="pillar-tagline">Tu empresa trabaja para ti, incluso cuando tú no estás</div>
+        </div>
+      </div>
+      <ul class="pillar-body">
+        <li><span class="parrow">►</span>Chatbots entrenados 24/7 sin costo adicional de personal</li>
+        <li><span class="parrow">►</span>Automatización de cotizaciones, pedidos y contratos</li>
+        <li><span class="parrow">►</span>Predicción de demanda con análisis de datos históricos</li>
+        <li><span class="parrow">►</span>Integración con WhatsApp Business y CRM</li>
+      </ul>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-head">
+        <div class="pillar-num">02</div>
+        <div>
+          <div class="pillar-title">Página Web Estratégica</div>
+          <div class="pillar-tagline">Tu vitrina digital diseñada para convertir visitas en ventas</div>
+        </div>
+      </div>
+      <ul class="pillar-body">
+        <li><span class="parrow">►</span>Diseño basado en neuromarketing y decisión de compra</li>
+        <li><span class="parrow">►</span>Landing pages de alta conversión por segmento de cliente</li>
+        <li><span class="parrow">►</span>Cotización inmediata y seguimiento por WhatsApp</li>
+        <li><span class="parrow">►</span>Optimización móvil (78% de búsquedas B2B en celular)</li>
+      </ul>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-head">
+        <div class="pillar-num">03</div>
+        <div>
+          <div class="pillar-title">Posicionamiento de Marca</div>
+          <div class="pillar-tagline">Que te encuentren antes que a tu competencia</div>
+        </div>
+      </div>
+      <ul class="pillar-body">
+        <li><span class="parrow">►</span>SEO local y sectorial para búsquedas de alta intención</li>
+        <li><span class="parrow">►</span>Autoridad de marca en LinkedIn y plataformas B2B</li>
+        <li><span class="parrow">►</span>Identidad visual que genera confianza y recordación</li>
+        <li><span class="parrow">►</span>Gestión en Google Business y directorios industriales</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pillar-grid-bot fade-up">
+    <div class="pillar-card">
+      <div class="pillar-head">
+        <div class="pillar-num">04</div>
+        <div>
+          <div class="pillar-title">Cartera de Clientes & Cierre de Ventas</div>
+          <div class="pillar-tagline">Sistema profesional para no perder ninguna oportunidad</div>
+        </div>
+      </div>
+      <ul class="pillar-body">
+        <li><span class="parrow">►</span>CRM personalizado (HubSpot / Zoho) para tu ciclo de venta</li>
+        <li><span class="parrow">►</span>Segmentación por volumen, frecuencia y potencial de crecimiento</li>
+        <li><span class="parrow">►</span>Scripts de neuroventas para tu equipo comercial</li>
+        <li><span class="parrow">►</span>Protocolo del primer contacto al contrato firmado</li>
+      </ul>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-head">
+        <div class="pillar-num">05</div>
+        <div>
+          <div class="pillar-title">Ads & Publicidad Digital</div>
+          <div class="pillar-tagline">Inversión que genera retorno medible desde el primer mes</div>
+        </div>
+      </div>
+      <ul class="pillar-body">
+        <li><span class="parrow">►</span>Google Ads en palabras clave de alta intención de compra</li>
+        <li><span class="parrow">►</span>Meta Ads con segmentación por industria y zona geográfica</li>
+        <li><span class="parrow">►</span>Retargeting para recuperar visitas que no cotizaron</li>
+        <li><span class="parrow">►</span>Reportes mensuales con costo por lead y ROI real</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RADAR + STATS -->
+  <div class="radar-section fade-up">
+    <div class="radar-text">
+      <h2>Sistema <span>Integrado</span> de Alto Impacto</h2>
+      <p>La neurociencia confirma: tus clientes forman una primera impresión en los primeros 7 segundos. Un ecosistema digital sólido activa la confianza de forma automática. Cada pilar potencia a los otros — el resultado es un ciclo de crecimiento que trabaja 24/7.</p>
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-num">7s</div>
+          <div class="stat-desc">Tiempo de decisión inconsciente del comprador B2B</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">5X</div>
+          <div class="stat-desc">Mayor conversión con sistema integrado vs. esfuerzos aislados</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">30d</div>
+          <div class="stat-desc">Primeros resultados visibles desde la activación</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <canvas id="radarMain" width="280" height="280"></canvas>
+    </div>
+  </div>
+
+  <!-- METHODOLOGY -->
+  <div class="methodology fade-up">
+    <h2>Metodología de Implementación</h2>
+    <p class="method-sub">4 fases de implementación coordinada para resultados compuestos</p>
+    <div class="method-steps">
+      <div class="method-step">
+        <div class="step-circle s1">01</div>
+        <div class="step-name">Diagnóstico</div>
+        <div class="step-desc">Auditoría completa de empresa, mercado y competencia</div>
+      </div>
+      <div class="method-step">
+        <div class="step-circle s2">02</div>
+        <div class="step-name">Construcción</div>
+        <div class="step-desc">Implementación de los 5 pilares de forma coordinada</div>
+      </div>
+      <div class="method-step">
+        <div class="step-circle s3">03</div>
+        <div class="step-name">Activación</div>
+        <div class="step-desc">Lanzamiento de campañas y sistema de ventas en vivo</div>
+      </div>
+      <div class="method-step">
+        <div class="step-circle s4">04</div>
+        <div class="step-name">Escalamiento</div>
+        <div class="step-desc">Optimización continua y expansión de canales de crecimiento</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ PLAN DE ENTRADA ═══════════════════════════════════════ -->
+<div id="plan" class="divider"></div>
+<div class="section">
+  <div class="section-head">
+    <div class="eyebrow">Estrategia de Entrada</div>
+    <h2>Plan de Entrada: 4 Fases</h2>
+    <p>Santa Cruz no se conquista con presencia — se conquista con contratos. Primero el contrato ancla, luego la infraestructura, luego el crecimiento.</p>
+  </div>
+
+  <div class="entry-timeline fade-up">
+    <div class="entry-track"></div>
+
+    <div class="entry-item">
+      <div class="entry-dot d1">1</div>
+      <div class="entry-card">
+        <div class="entry-head">
+          <div class="entry-badge">Mes 1–2</div>
+          <div>
+            <h4>Inteligencia & Primer Cliente Ancla</h4>
+            <p>Sin infraestructura propia aún — logística de terceros y primer contrato en mano</p>
+          </div>
+        </div>
+        <div class="entry-body">
+          <ul>
+            <li>Mapear las 10 empresas con mayor consumo diesel en SCZ (CAO, Cámara Construcción, Cámara Minera)</li>
+            <li>Proponer suministro piloto de 30 días con precio garantizado y entrega en sitio</li>
+            <li>Usar cisternas terceriadas para primera entrega — sin necesidad de flota propia</li>
+            <li>Obtener autorización ANH para comercialización (requisito legal no negociable)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="entry-item">
+      <div class="entry-dot d2">2</div>
+      <div class="entry-card">
+        <div class="entry-head">
+          <div class="entry-badge">Mes 3–4</div>
+          <div>
+            <h4>Presencia & Segundo Contrato</h4>
+            <p>Con el primer contrato activo, el segundo llega por referido</p>
+          </div>
+        </div>
+        <div class="entry-body">
+          <ul>
+            <li>Solicitar referido activo al primer cliente (en el pico de satisfacción, tras primera entrega perfecta)</li>
+            <li>Establecer punto de almacenamiento propio o en comodato en zona estratégica de SCZ</li>
+            <li>Contratar ejecutivo comercial local — alguien que conozca el tejido empresarial cruceño</li>
+            <li>Lanzar el portal digital de pedidos y trazabilidad</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="entry-item">
+      <div class="entry-dot d3">3</div>
+      <div class="entry-card">
+        <div class="entry-head">
+          <div class="entry-badge">Mes 5–8</div>
+          <div>
+            <h4>Posicionamiento vs. Intpetrol / Empacar</h4>
+            <p>Con 3–5 contratos activos, IMCLA ya es un jugador del mercado</p>
+          </div>
+        </div>
+        <div class="entry-body">
+          <ul>
+            <li>Activar los 5 Pilares: SEO, Google Ads, CRM, web y automatización IA</li>
+            <li>Publicar casos de éxito de los primeros clientes con datos reales</li>
+            <li>Desarrollar presencia en Montero y norte integrado — zona que Intpetrol y Empacar no cubren bien</li>
+            <li>Presentarse a licitaciones de empresas grandes con procesos de compra formal</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="entry-item">
+      <div class="entry-dot d4">4</div>
+      <div class="entry-card">
+        <div class="entry-head">
+          <div class="entry-badge">Mes 9–12</div>
+          <div>
+            <h4>Consolidación & Contratos Marco Anuales</h4>
+            <p>De proveedor nuevo a socio estratégico de largo plazo</p>
+          </div>
+        </div>
+        <div class="entry-body">
+          <ul>
+            <li>Convertir contratos mensuales en contratos anuales con precio fijo o techo de variación</li>
+            <li>Lanzar programa de fidelización: descuento por volumen acumulado anual</li>
+            <li>Meta: 5–10 contratos B2B activos con volumen agregado de 1–2M litros/mes en SCZ</li>
+            <li>Evaluar expansión a Cochabamba o Beni usando el modelo probado en Santa Cruz</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert green">
+    <strong>✅ La ventaja competitiva sostenible de IMCLA:</strong> El sistema de 5 Pilares le da a IMCLA lo que Intpetrol y Empacar no tienen hoy: <strong>un sistema comercial inteligente que capta, convierte y retiene clientes de forma automatizada</strong>. Mientras ellos esperan que el cliente los vaya a buscar, IMCLA los encuentra antes, los convierte más rápido y no deja que se vayan. Ese sistema es el verdadero diferenciador.
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-cta">
+  <div>
+    <h3>Santa Cruz es el mercado.<br>El momento es ahora.</h3>
+    <p>Las empresas que entren al mercado cruceño en los próximos 6 meses con contratos sólidos, logística confiable y sistema comercial inteligente, van a capturar los clientes que en 12–18 meses serán imposibles de arrebatar. IMCLA tiene la oportunidad. La pregunta es con qué velocidad la toma.</p>
+  </div>
+  <div class="footer-contact">
+    <p>IMCLA Bolivia</p>
+    <p style="color:#C0D4E8;font-weight:400">lozaaron9@gmail.com</p>
+    <small>Propuesta comercial · Junio 2026 · Uso confidencial</small>
+  </div>
+</div>
+<div class="footer-bottom">
+  IMCLA Bolivia · Propuesta Estratégica · Mercado Diesel Santa Cruz · Junio 2026<br>
+  Fuentes: ANH Bolivia · YPFB · Empacar Energy · Intpetrol · DS 5271 · DS 5516 · Economy.com.bo
+</div>
+
+<script>
+// RADAR HEADER
+const radarCfg = {
+  type: 'radar',
+  data: {
+    labels: ['IA', 'Web', 'Marca', 'CRM', 'Ads'],
+    datasets: [{
+      data: [90, 88, 85, 87, 92],
+      backgroundColor: 'rgba(201,160,16,0.15)',
+      borderColor: '#C9A010', borderWidth: 2,
+      pointBackgroundColor: '#C9A010', pointRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: true,
+    animation: { duration: 1200 },
+    scales: {
+      r: {
+        min: 0, max: 100,
+        grid: { color: 'rgba(255,255,255,0.12)' },
+        angleLines: { color: 'rgba(255,255,255,0.18)' },
+        pointLabels: { color: '#C9A010', font: { size: 11, weight: 'bold', family: 'Inter' } },
+        ticks: { display: false },
+      }
+    },
+    plugins: { legend: { display: false } }
+  }
+};
+new Chart(document.getElementById('radarHeader'), radarCfg);
+
+// RADAR MAIN
+new Chart(document.getElementById('radarMain'), {
+  type: 'radar',
+  data: {
+    labels: ['Automatización\nIA', 'Página Web', 'Marca', 'CRM &\nVentas', 'Ads'],
+    datasets: [{
+      label: 'Con sistema IMCLA',
+      data: [90, 88, 85, 87, 92],
+      backgroundColor: 'rgba(15,76,154,0.15)',
+      borderColor: '#0F4C9A', borderWidth: 2.5,
+      pointBackgroundColor: '#002B6E', pointRadius: 5,
+    },{
+      label: 'Sin sistema integrado',
+      data: [30, 28, 25, 22, 35],
+      backgroundColor: 'rgba(201,160,16,0.08)',
+      borderColor: 'rgba(201,160,16,0.5)', borderWidth: 1.5,
+      borderDash: [5,3], pointBackgroundColor: '#C9A010', pointRadius: 3,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: true,
+    animation: { duration: 1400 },
+    scales: {
+      r: {
+        min: 0, max: 100,
+        grid: { color: 'rgba(0,43,110,0.08)' },
+        angleLines: { color: 'rgba(0,43,110,0.12)' },
+        pointLabels: { color: '#002B6E', font: { size: 10, weight: '600', family: 'Inter' } },
+        ticks: { backdropColor: 'transparent', color: '#A0B0C8', font: { size: 8 } },
+      }
+    },
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 10, family: 'Inter' }, color: '#4A4A4A', boxWidth: 12 } }
+    }
+  }
+});
+
+// CHART: Consumo por Departamento
+new Chart(document.getElementById('chartDepts'), {
+  type: 'bar',
+  data: {
+    labels: ['Santa Cruz', 'La Paz', 'Cochabamba', 'Oruro', 'Potosí', 'Beni', 'Tarija'],
+    datasets: [{
+      label: 'Litros/día (miles)',
+      data: [3300, 1200, 900, 400, 300, 250, 200],
+      backgroundColor: ['#C9A010','#0F4C9A','#0F4C9A','#0F4C9A','#0F4C9A','#0F4C9A','#0F4C9A'],
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, grid: { color: 'rgba(0,43,110,.06)' }, ticks: { callback: v => v+'K', font: { size: 10 } } },
+      x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+    }
+  }
+});
+
+// CHART: Sectores SCZ
+new Chart(document.getElementById('chartSectors'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Transporte', 'Agro-industria', 'Eléctrico', 'Construcción', 'Minería', 'Otros'],
+    datasets: [{
+      data: [58, 13, 10, 8, 7, 4],
+      backgroundColor: ['#002B6E','#1A7A4A','#0F4C9A','#B85000','#8B1A1A','#888'],
+      borderWidth: 2, borderColor: '#fff',
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'right', labels: { font: { size: 10 }, padding: 12 } } }
+  }
+});
+
+// CHART: Posicionamiento Competitivo
+new Chart(document.getElementById('chartPositioning'), {
+  type: 'scatter',
+  data: {
+    datasets: [
+      { label: 'YPFB', data: [{x:30,y:90}], backgroundColor: '#1A7A4A', pointRadius: 18, pointHoverRadius: 20 },
+      { label: 'Intpetrol', data: [{x:55,y:50}], backgroundColor: '#C9A010', pointRadius: 16, pointHoverRadius: 18 },
+      { label: 'Empacar Energy', data: [{x:45,y:40}], backgroundColor: '#0F4C9A', pointRadius: 16, pointHoverRadius: 18 },
+      { label: 'Latigidconst / Ruiz Petrol', data: [{x:40,y:20}], backgroundColor: '#888', pointRadius: 13, pointHoverRadius: 15 },
+      { label: '⭐ IMCLA (objetivo)', data: [{x:75,y:60}], backgroundColor: '#8B0000', pointRadius: 18, pointHoverRadius: 20, pointStyle: 'star' }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      x: { title: { display: true, text: '← Menor cobertura / Mayor cobertura →', font: { size: 11 }, color: '#6070A0' }, min: 0, max: 100, grid: { color: 'rgba(0,43,110,.06)' }, ticks: { display: false } },
+      y: { title: { display: true, text: '← Precio más alto / Precio más bajo →', font: { size: 11 }, color: '#6070A0' }, min: 0, max: 100, grid: { color: 'rgba(0,43,110,.06)' }, ticks: { display: false } }
+    },
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 14 } },
+      tooltip: {
+        callbacks: {
+          label: ctx => ({
+            'YPFB': 'YPFB: Precio bajo (Bs9.80) pero sin disponibilidad',
+            'Intpetrol': 'Intpetrol: Precio alto, cobertura media (zona norte SCZ)',
+            'Empacar Energy': 'Empacar: Precio premium, solo Parque Industrial',
+            'Latigidconst / Ruiz Petrol': 'Latigid/Ruiz: Cobertura y precio desconocidos',
+            '⭐ IMCLA (objetivo)': '⭐ IMCLA objetivo: Alta cobertura + precio B2B competitivo + delivery',
+          }[ctx.dataset.label] || ctx.dataset.label)
+        }
+      }
+    }
+  }
+});
+
+// CHART: Precios por Canal
+new Chart(document.getElementById('chartPrecios'), {
+  type: 'bar',
+  data: {
+    labels: ['YPFB (regulado)', 'Ref. importación (base)', 'Intpetrol (estación)', 'B2B privado (estimado)', 'Empacar (ULSD)'],
+    datasets: [{
+      label: 'Bs/litro',
+      data: [9.80, 8.63, 13.90, 12.00, 14.50],
+      backgroundColor: ['#1A7A4A','#0F4C9A','#C9A010','#002B6E','#8B4513'],
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: false, min: 7, max: 16, grid: { color: 'rgba(0,43,110,.06)' }, ticks: { callback: v => 'Bs '+v, font: { size: 10 } } },
+      x: { grid: { display: false }, ticks: { font: { size: 9 } } }
+    }
+  }
+});
+
+// CHART: Factores de Precio
+new Chart(document.getElementById('chartFactors'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Precio petróleo Brent','Flete logístico Bolivia','Tipo de cambio USDT/BOB','Aduana e impuestos','Margen comercial'],
+    datasets: [{
+      data: [45, 20, 15, 12, 8],
+      backgroundColor: ['#002B6E','#0F4C9A','#C9A010','#8B1A1A','#1A7A4A'],
+      borderWidth: 2, borderColor: '#fff',
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'right', labels: { font: { size: 9 }, padding: 8 } } }
+  }
+});
+
+// FADE IN OBSERVER
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
